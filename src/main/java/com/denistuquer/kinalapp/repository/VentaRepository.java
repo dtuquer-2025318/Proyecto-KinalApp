@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Gracias a JpaRepository, ya incluye métodos para guardar, buscar,
  * actualizar y eliminar registros sin necesidad de implementarlos nanualmente.
  */
-public interface VentaRepositoriy extends JpaRepository<Venta, Integer> {
+public interface VentaRepository extends JpaRepository<Venta, Integer> {
 }
