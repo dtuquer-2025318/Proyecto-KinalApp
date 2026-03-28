@@ -5,7 +5,7 @@ import com.denistuquer.kinalapp.entity.DetalleVenta;
 import java.util.List;
 import java.util.Optional;
 
-public interface IDetalleVenta {
+public interface IDetalleVentaService {
 
     /**
      * Interfaz: Es un contrato que dice QUÉ métodos debe tener
