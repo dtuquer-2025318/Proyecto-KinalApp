@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro de Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container">
+    <h2 th:text="${usuario.codigoUsuario == null ? 'Crear Nuevo Usuario' : 'Editar Usuario'}"></h2>
+
+    <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post" class="form-layout"
+          onsubmit="return confirm('¿Deseas guardar los cambios realizados?')">
+
+        <input type="hidden" th:field="*{codigoUsuario}">
+
+        <div class="form-group">
+            <label>Nombre de Usuario</label>
+            <input type="text" th:field="*{username}" placeholder="Ej: dtuquer" required>
+        </div>
+
+        <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" th:field="*{email}" placeholder="usuario@kinal.edu.gt" required>
+        </div>
+
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" th:field="*{password}" placeholder="********"
+                   th:required="${usuario.codigoUsuario == null}">
+        </div>
+
+        <div class="form-group">
+            <label>Tipo de Cuenta</label>
+            <select th:field="*{rol}" required>
+                <option value="ADMIN">ADMINISTRADOR</option>
+                <option value="USUARIO">USUARIO ESTÁNDAR</option>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Estado de la Cuenta</label>
+            <select th:field="*{estado}" required>
+                <option value="1">HABILITADO (Activo)</option>
+                <option value="0">DESHABILITADO (Inactivo)</option>
+            </select>
+        </div>
+
+        <div class="actions-container full-width">
+            <button type="submit" class="btn-main btn-fire">GUARDAR USUARIO</button>
+
+            <button type="button" class="btn-main"
+                    onclick="if(confirm('¿Deseas cancelar?')) { history.back(); }">
+                CANCELAR
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

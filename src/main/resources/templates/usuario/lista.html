@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Accesos</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container wide-container">
+    <h1>Control de Accesos</h1>
+
+    <div class="actions-container">
+        <a th:href="@{/menu}" class="btn-nav">⬅ PANEL</a>
+        <a th:href="@{/usuario/nuevo}" class="btn-nav btn-fire">➕ NUEVO</a>
+    </div>
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="u : ${usuarios}">
+            <td th:text="${u.codigoUsuario}"></td>
+            <td th:text="${u.username}" class="user-name-cell"></td>
+            <td>
+                <span th:text="${u.estado == 1 ? 'ACTIVO' : 'INACTIVO'}"
+                      th:class="${u.estado == 1 ? 'status-active' : 'status-inactive'}">
+                </span>
+            </td>
+            <td>
+                <div class="table-actions">
+                    <a th:href="@{/usuario/editar/{id}(id=${u.codigoUsuario})}"
+                       onclick="return confirm('¿Editar usuario?')"> Editar</a>
+
+                    <a th:href="@{/usuario/eliminar/{id}(id=${u.codigoUsuario})}"
+                       onclick="return confirm('¿Eliminar usuario?')"> Eliminar</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
