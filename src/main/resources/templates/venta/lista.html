@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Historial de Ventas</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container wide-container">
+    <h1>Historial de Ventas</h1>
+
+    <div class="actions-container">
+        <a th:href="@{/menu}" class="btn-nav"> ⬅ VOLVER AL MENÚ</a>
+        <a th:href="@{/venta/nuevo}" class="btn-nav btn-fire"> + NUEVA VENTA</a>
+    </div>
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="v : ${ventas}">
+            <td th:text="${v.codigoVenta}"></td>
+            <td th:text="${v.fechaVenta}"></td>
+            <td th:text="${v.cliente.nombreCliente}"></td>
+            <td th:text="${v.usuario.username}"></td>
+            <td th:text="'Q' + ${#numbers.formatDecimal(v.total, 1, 2)}"></td>
+            <td>
+                <span th:text="${v.estado == 1 ? 'Activa' : 'Inactiva'}"
+                      th:class="${v.estado == 1 ? 'status-active' : 'status-inactive'}"></span>
+            </td>
+            <td>
+                <div class="table-actions">
+                    <a th:href="@{/venta/eliminar/{id}(id=${v.codigoVenta})}"
+                       onclick="return confirm('¿Deseas eliminar este registro de venta?')">eliminar</a>
+                </div>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(ventas)}">
+            <td colspan="7">No se han registrado ventas aún.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
