@@ -11,7 +11,7 @@ public interface IDetalleVentaService {
      * Interfaz: Es un contrato que dice QUÉ métodos debe tener
      * cualquier servicio de DetalleVentas, No tienes
      * Implementación, solo la definición de los métodos
-    */
+     */
 
     //Metodo que devuelve una lista de todos los Detalle de Ventas
     List<DetalleVenta> listarTodos();
