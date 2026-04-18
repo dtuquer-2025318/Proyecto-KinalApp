@@ -8,7 +8,8 @@ public class Usuario {
 
     @Id
     @Column(name = "codigo_usuario")
-    private int codigoUsuario;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer codigoUsuario;
     @Column
     private String username;
     @Column
@@ -25,7 +26,7 @@ public class Usuario {
     }
 
     //Constructor lleno
-    public Usuario(int codigoUsuario, String username, String password, String email, String rol, int estado) {
+    public Usuario(Integer codigoUsuario, String username, String password, String email, String rol, int estado) {
         this.codigoUsuario = codigoUsuario;
         this.username = username;
         this.password = password;
@@ -35,11 +36,11 @@ public class Usuario {
     }
 
     //Getters and Setters
-    public int getCodigoUsuario() {
+    public Integer getCodigoUsuario() {
         return codigoUsuario;
     }
 
-    public void setCodigoUsuario(int codigoUsuario) {
+    public void setCodigoUsuario(Integer codigoUsuario) {
         this.codigoUsuario = codigoUsuario;
     }
 
