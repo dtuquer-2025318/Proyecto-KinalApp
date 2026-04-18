@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro</title>
+</head>
+<body>
+<h2>Crear Cuenta</h2>
+
+<form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
+    <div>
+        <label>Nombre de Usuario:</label><br>
+        <input type="text" th:field="*{username}" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Correo Electrónico:</label><br>
+        <input type="email" th:field="*{email}" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Contraseña:</label><br>
+        <input type="password" th:field="*{password}" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Tipo de Cuenta:</label><br>
+        <select th:field="*{rol}" required>
+            <option value="ADMIN">Administrador</option>
+            <option value="USUARIO">Usuario Estándar</option>
+        </select>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Estado de la cuenta:</label><br>
+        <select th:field="*{estado}" required>
+            <option value="1">Activo (Habilitado)</option>
+            <option value="0">Inactivo (Deshabilitado)</option>
+        </select>
+    </div>
+
+    <br>
+
+    <button type="submit">REGISTRARSE</button>
+
+    <a th:href="@{/usuario/lista}">
+        <button type="button">CANCELAR</button>
+    </a>
+</form>
+
+<br>
+
+<div>
+    <p>¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
+</div>
+</body>
+</html>
