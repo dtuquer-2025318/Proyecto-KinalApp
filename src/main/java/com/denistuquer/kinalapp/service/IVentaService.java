@@ -1,5 +1,6 @@
 package com.denistuquer.kinalapp.service;
 
+import com.denistuquer.kinalapp.entity.DetalleVenta;
 import com.denistuquer.kinalapp.entity.Venta;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface IVentaService {
      */
 
     //Metodo que devuelve una lista de todos los Ventas
-    List<Venta> listarTodos();
+
 
     /**
      * List<Venta> lo que hace es devolver una lista
@@ -27,16 +28,16 @@ public interface IVentaService {
 
     //Optional - Contenedor que puede o no tener valor
     //Evita el error de NullPointerException
-    Optional<Venta> buscarPorCodigo(int codigo);
+    Optional<Venta> buscarPorCodigo(int codigoVenta);
 
     /**
      * List<Venta> lo que hace es devolver una lista
      * de objetos de la entidad Venta
      */
-    List<Venta> listarActivos();
+    List<Venta> listarTodos();
 
     //Metodo que actualiza una Venta
-    Venta actualizar(int codigo, Venta venta);
+    Venta actualizar(int codigoVenta, Venta venta);
     /**
      * Parametros - codigo: CODIGO de la venta a actualizar
      * Codigo codigo: Objeto con los datos nuevos
@@ -48,8 +49,13 @@ public interface IVentaService {
      * Void: no retorna ningún valor o dato
      * Elimina: un objeto de tipo Venta ya actualizado
      */
-    void eliminar(int codigo);
+    void eliminar(int codigoVenta);
 
     //Boolean - Retorna tru si existe y false si no existe
-    boolean existePorCodigo(int codigo);
+    boolean existePorCodigo(int codigoVenta);
+
+    // Métodos que el VentaViewController necesita para no marcar error en rojo:
+    void crearVenta(Venta venta, List<DetalleVenta> detalles);
+    void eliminarVenta(Integer id);
+    List<Venta> buscarPorDpi(String dpi);
 }
