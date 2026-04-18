@@ -8,10 +8,11 @@ import java.math.BigDecimal;
 @Table(name = "DetalleVenta")
 public class DetalleVenta {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_detalle_venta")
-    private int codigoDetalleVenta;
+    private Integer codigoDetalleVenta;
     @Column
-    private int cantidad;
+    private Integer cantidad;
     @Column(precision = 10, scale = 2)
     private BigDecimal precioUnitario;
 
@@ -30,7 +31,7 @@ public class DetalleVenta {
     public DetalleVenta(){}
 
     //Constructor Lleno
-    public DetalleVenta(int codigoDetalleVenta, int cantidad, BigDecimal precioUnitario, BigDecimal subtotal, Producto producto, Venta venta) {
+    public DetalleVenta(Integer codigoDetalleVenta, Integer cantidad, BigDecimal precioUnitario, BigDecimal subtotal, Producto producto, Venta venta) {
         this.codigoDetalleVenta = codigoDetalleVenta;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
@@ -39,20 +40,19 @@ public class DetalleVenta {
         this.venta = venta;
     }
 
-    //Getters and Setters
-    public int getCodigoDetalleVenta() {
+    public Integer getCodigoDetalleVenta() {
         return codigoDetalleVenta;
     }
 
-    public void setCodigoDetalleVenta(int codigoDetalleVenta) {
+    public void setCodigoDetalleVenta(Integer codigoDetalleVenta) {
         this.codigoDetalleVenta = codigoDetalleVenta;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
