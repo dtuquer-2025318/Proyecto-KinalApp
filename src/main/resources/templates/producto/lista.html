@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Inventario</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container wide-container">
+    <h1>Gestión de Productos</h1>
+
+    <div class="actions-container">
+        <a th:href="@{/menu}" class="btn-nav">⬅ VOLVER AL MENÚ</a>
+        <a th:href="@{/producto/nuevo}" class="btn-nav btn-fire">+ NUEVO PRODUCTO</a>
+    </div>
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción del Producto</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${productos}">
+            <td th:text="${p.codigoProducto}"></td>
+            <td th:text="${p.nombre_Producto}"></td>
+            <td th:text="'Q' + ${#numbers.formatDecimal(p.precio, 1, 2)}"></td>
+            <td th:text="${p.stock}"></td>
+            <td>
+                <div class="actions-container">
+                    <a th:href="@{/producto/editar/{id}(id=${p.codigoProducto})}">editar</a>
+                    <a th:href="@{/producto/eliminar/{id}(id=${p.codigoProducto})}"
+                       onclick="return confirm('¿Eliminar producto?')">eliminar</a>
+                </div>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(productos)}">
+            <td colspan="5">No hay productos registrados en el sistema.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

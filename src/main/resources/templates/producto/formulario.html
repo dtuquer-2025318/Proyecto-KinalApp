@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro de Producto</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container">
+    <h2 th:text="${producto.codigoProducto == null ? 'Forjar Nuevo Producto' : 'Actualizar Producto'}"></h2>
+
+    <form th:action="@{/producto/guardar}" th:object="${producto}" method="post" class="form-layout">
+
+        <div class="form-group full-width">
+            <label>Código del Producto (ID):</label>
+            <input type="number" th:field="*{codigoProducto}"
+                   th:readonly="${producto.codigoProducto != null}" required>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Nombre o Descripción:</label>
+            <input type="text" th:field="*{nombre_Producto}" placeholder="Ej: Risitos de Queso 30g" required>
+        </div>
+
+        <div class="form-group">
+            <label>Precio de Venta (Q):</label>
+            <input type="number" step="0.01" th:field="*{precio}" placeholder="0.00" required>
+        </div>
+
+        <div class="form-group">
+            <label>Cantidad en Stock:</label>
+            <input type="number" th:field="*{stock}" placeholder="Cantidad inicial" required>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Estado del Producto:</label>
+            <select th:field="*{estado}">
+                <option value="1">Disponible / Activo</option>
+                <option value="0">No Disponible / Inactivo</option>
+            </select>
+        </div>
+
+        <div class="actions-container full-width">
+            <button type="submit" class="btn-main btn-fire">GUARDAR PRODUCTO</button>
+            <button type="button" class="btn-main" onclick="history.back()">CANCELAR</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
