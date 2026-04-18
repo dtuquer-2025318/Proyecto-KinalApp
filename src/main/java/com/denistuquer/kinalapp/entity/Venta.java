@@ -4,47 +4,53 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "ventas")
-
 public class Venta {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo_venta")
-    private int codigoVenta;
+    private Integer codigoVenta;
     @Column
     private LocalDate fechaVenta;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal total;
     @Column
-    private int estado;
+    private Integer estado;
 
     @ManyToOne
-    @JoinColumn(name = "Clientes_dpi_cliente", nullable = false)
+    @JoinColumn(name = "clientes_dpi_cliente", nullable = false)
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "Usuarios_codigo_usuario", nullable = false)
+    @JoinColumn(name = "usuarios_codigo_usuario", nullable = false)
     private Usuario usuario;
+
+    // Relación con detalle (One venta -> Many detalles)
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
+    private List<DetalleVenta> detalles;
 
     public Venta() {
     }
 
-    public Venta(int codigoVenta, LocalDate fechaVenta, BigDecimal total, int estado, Cliente cliente, Usuario usuario) {
+    public Venta(Integer codigoVenta, LocalDate fechaVenta, BigDecimal total, Integer estado, Cliente cliente, Usuario usuario, List<DetalleVenta> detalles) {
         this.codigoVenta = codigoVenta;
         this.fechaVenta = fechaVenta;
         this.total = total;
         this.estado = estado;
         this.cliente = cliente;
         this.usuario = usuario;
+        this.detalles = detalles;
     }
 
-    public int getCodigoVenta() {
+    public Integer getCodigoVenta() {
         return codigoVenta;
     }
 
-    public void setCodigoVenta(int codigoVenta) {
+    public void setCodigoVenta(Integer codigoVenta) {
         this.codigoVenta = codigoVenta;
     }
 
@@ -64,11 +70,11 @@ public class Venta {
         this.total = total;
     }
 
-    public int getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 
@@ -86,5 +92,13 @@ public class Venta {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public List<DetalleVenta> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleVenta> detalles) {
+        this.detalles = detalles;
     }
 }
