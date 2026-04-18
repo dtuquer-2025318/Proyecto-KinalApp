@@ -56,8 +56,8 @@ public class VentaController {
      * @return ResponseEntity con la lista de ventas activas o sin contenido
      */
     @GetMapping("/activos")
-    public ResponseEntity<List<Venta>> listarActivos(){
-        List<Venta> activos = ventaService.listarActivos();
+    public ResponseEntity<List<Venta>> listarTodos(){
+        List<Venta> activos = ventaService.listarTodos();
         if (activos.isEmpty()) {
             //204 si no hay ventas activas
             return ResponseEntity.noContent().build();
