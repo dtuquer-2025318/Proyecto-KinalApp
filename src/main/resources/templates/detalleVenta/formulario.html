@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Registro de Detalle</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container">
+    <h2 th:text="${detalleVenta.codigoDetalleVenta == null ? 'Nuevo Detalle de Venta' : 'Editar Detalle'}"></h2>
+
+    <form th:action="@{/detalleVenta/guardar}" th:object="${detalleVenta}" method="post" class="form-layout"
+          onsubmit="return confirm('¿Confirmas que los datos para este registro son correctos?')">
+
+        <input type="hidden" th:field="*{codigoDetalleVenta}">
+
+        <div class="form-group full-width">
+            <label>Venta Relacionada (Factura):</label>
+            <select th:field="*{venta.codigoVenta}" required>
+                <option value="">-- Seleccione Factura --</option>
+                <option th:each="v : ${ventas}" th:value="${v.codigoVenta}" th:text="'Factura No. ' + ${v.codigoVenta}"></option>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Producto:</label>
+            <select th:field="*{producto.codigoProducto}" required>
+                <option value="">-- Seleccione Producto --</option>
+                <option th:each="p : ${productos}" th:value="${p.codigoProducto}" th:text="${p.nombre_Producto}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Cantidad:</label>
+            <input type="number" th:field="*{cantidad}" min="1" required placeholder="Ej: 5">
+        </div>
+
+        <div class="form-group">
+            <label>Precio Unitario (Q):</label>
+            <input type="number" step="0.01" th:field="*{precioUnitario}" required placeholder="0.00">
+        </div>
+
+        <div class="actions-container full-width">
+            <button type="submit" class="btn-main btn-fire">GUARDAR DETALLE</button>
+            <button type="button" class="btn-main"
+                    onclick="if(confirm('¿Deseas cancelar?')) { history.back(); }">
+                CANCELAR
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>KinalApp - Listado de Detalles</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div class="main-container wide-container">
+    <h1>Desglose de Facturación</h1>
+
+    <div class="actions-container">
+        <a th:href="@{/menu}" class="btn-nav"> ⬅ VOLVER AL PANEL</a>
+        <a th:href="@{/detalleVenta/nuevo}" class="btn-nav btn-fire"> + ASIGNAR PRODUCTO</a>
+    </div>
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>No. Factura</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unit.</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="d : ${detalles}">
+            <td th:text="${d.codigoDetalleVenta}"></td>
+            <td th:text="'Factura #' + ${d.venta.codigoVenta}"></td>
+            <td th:text="${d.producto.nombre_Producto}"></td>
+            <td th:text="${d.cantidad}"></td>
+            <td th:text="'Q' + ${#numbers.formatDecimal(d.precioUnitario, 1, 2)}"></td>
+            <td th:text="'Q' + ${#numbers.formatDecimal(d.subtotal, 1, 2)}"></td>
+            <td>
+                <div class="table-actions">
+                    <a th:href="@{/detalleVenta/editar/{id}(id=${d.codigoDetalleVenta})}"
+                       onclick="return confirm('¿Deseas editar este detalle?')"> Editar️</a>
+
+                    <a th:href="@{/detalleVenta/eliminar/{id}(id=${d.codigoDetalleVenta})}"
+                       onclick="return confirm('¿Eliminar este producto de la factura?')"> Eliminar</a>
+                </div>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(detalles)}">
+            <td colspan="7">No hay detalles registrados.</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
