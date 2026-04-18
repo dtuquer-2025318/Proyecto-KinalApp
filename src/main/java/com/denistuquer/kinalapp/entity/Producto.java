@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class Producto {
     @Id
     @Column(name = "codigo_producto")
-    private int codigoProducto;
+    private Integer codigoProducto;
     @Column
     private String nombreProducto;
     @Column(precision = 10, scale = 2)
@@ -28,7 +28,7 @@ public class Producto {
     }
 
     //Constructor lleno
-    public Producto(int codigoProducto, String nombreProducto, BigDecimal precio, int stock, int estado) {
+    public Producto(Integer codigoProducto, String nombreProducto, BigDecimal precio, int stock, int estado) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
@@ -38,11 +38,11 @@ public class Producto {
 
     //Getters and Setters
 
-    public int getCodigoProducto() {
+    public Integer getCodigoProducto() {
         return codigoProducto;
     }
 
-    public void setCodigoProducto(int codigoProducto) {
+    public void setCodigoProducto(Integer codigoProducto) {
         this.codigoProducto = codigoProducto;
     }
 
