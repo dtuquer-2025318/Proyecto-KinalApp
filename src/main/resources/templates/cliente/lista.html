@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista - KinalApp</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div class="main-container wide-container">
+    <h1>Gestión de Clientes</h1>
+
+    <div class="actions-container">
+        <a th:href="@{/menu}" class="btn-nav">⬅ VOLVER</a>
+        <a th:href="@{/cliente/nuevo}" class="btn-nav btn-fire">➕ NUEVO</a>
+    </div>
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>DPI</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${clientes}">
+            <td th:text="${c.DPICliente}"></td>
+            <td th:text="${c.nombreCliente + ' ' + c.apellidoCliente}"></td>
+            <td th:text="${c.estado == 1 ? 'Activo' : 'Inactivo'}"></td>
+            <td>
+                <div class="table-actions">
+                    <a th:href="@{/cliente/editar/{id}(id=${c.DPICliente})}"> Editar</a>
+                    <a th:href="@{/cliente/eliminar/{id}(id=${c.DPICliente})}"
+                       onclick="return confirm('¿Eliminar?')"> Eliminar</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
