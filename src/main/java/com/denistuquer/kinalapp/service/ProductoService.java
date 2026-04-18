@@ -10,22 +10,22 @@ import java.util.List;
 import java.util.Optional;
 
 /**
-* Anotación que registra un Bean como un Bean de Spring
-* Que la clase contiene la lógica del negocio
-**/
+ * Anotación que registra un Bean como un Bean de Spring
+ * Que la clase contiene la lógica del negocio
+ **/
 @Service
 /**
-* Por defecto todos los metodos de esta clase seran transaccionales
-* Una transacción es que puede o no ocurrir algo
-*/
+ * Por defecto todos los metodos de esta clase seran transaccionales
+ * Una transacción es que puede o no ocurrir algo
+ */
 @Transactional
 public class ProductoService implements IProductoService{
     /**
-    * Private: Solo es accesible dentro de la misma clase
-    * Final: No puede cambiar, es constante
-    * ProductoRepository: El repositorio para acceder a la BD
-    * Inyección de Dependencia ya que Spring nos da el Repositorio
-    */
+     * Private: Solo es accesible dentro de la misma clase
+     * Final: No puede cambiar, es constante
+     * ProductoRepository: El repositorio para acceder a la BD
+     * Inyección de Dependencia ya que Spring nos da el Repositorio
+     */
     private final ProductoRepository productoRepository;
 
     /**
@@ -92,12 +92,12 @@ public class ProductoService implements IProductoService{
         List<Producto> productos = productoRepository.findAll();
         //if/else para mostrar solo los productos activos
         List<Producto> activos = new java.util.ArrayList<>();
-            for (Producto producto : productos){
-                if (producto.getEstado() == 1){
-                    activos.add(producto);
-                }
+        for (Producto producto : productos){
+            if (producto.getEstado() == 1){
+                activos.add(producto);
             }
-            return activos;
+        }
+        return activos;
     }
 
     /**
