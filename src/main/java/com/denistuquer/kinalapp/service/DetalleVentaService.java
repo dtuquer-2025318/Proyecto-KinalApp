@@ -43,14 +43,11 @@ public class DetalleVentaService implements IDetalleVentaService{
     @Transactional(readOnly = true)
     public List<DetalleVenta> listarTodos() {
         return detalleVentaRepository.findAll();
-        //findAll() es un metodo de spring que hace el Select * from DetallVenta
-        //este metodo de JpaRepository
     }
 
     @Override
     public DetalleVenta guardar(DetalleVenta detalleVenta) {
         validarDetalleVenta(detalleVenta);
-        //Calcula subtotal automáticamente
         detalleVenta.setSubtotal(
                 detalleVenta.getPrecioUnitario()
                         .multiply(BigDecimal.valueOf(detalleVenta.getCantidad())));
@@ -62,7 +59,6 @@ public class DetalleVentaService implements IDetalleVentaService{
     public Optional<DetalleVenta> buscarPorCodigo(int codigo) {
         //Buscar un DetalleVenta por codigo
         return detalleVentaRepository.findById(codigo);
-        //Opcional nos evita el nullPointer
     }
 
     @Override
@@ -70,22 +66,14 @@ public class DetalleVentaService implements IDetalleVentaService{
         //Metodo para actualizar un DetalleVenta
         if (!detalleVentaRepository.existsById(codigo)) {
             throw new RuntimeException("DetalleVenta no encontrado con codigo: " + codigo);
-            //Si no existe se lanza una excepcion (error controlado)
         }
         detalleVenta.setCodigoDetalleVenta(codigo);
-        //Asegurarnos que el CODIGO del objeto coincida con el de la URL
-        //Por seguridad usamos el CODIGO de la URL y no el que viene en el JSON
         validarDetalleVenta(detalleVenta);
 
         detalleVenta.setSubtotal(
                 detalleVenta.getPrecioUnitario()
                         .multiply(BigDecimal.valueOf(detalleVenta.getCantidad())));
         return detalleVentaRepository.save(detalleVenta);
-        /*
-         * save() este no solo sirve para guardar sino tambien para actualizar Si el dat
-         * Existe (Codigo) entonces hace UPDATE pero si no existe hace un INSERT pero
-         * antes verificamos si existe o no el registro
-         **/
     }
 
     @Override
