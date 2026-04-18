@@ -1,0 +1,91 @@
+/* KinalApp: THE IRON CODE - Estilo Maestro */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --iron-blue: #001d4d;
+    --dragon-fire: #ff6b00;
+    --ice-bg: #e2e8f0;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--ice-bg);
+    background-image: radial-gradient(circle at top, #f1f5f9 0%, #cbd5e1 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* CONTENEDORES */
+.auth-container, .dashboard-card, .main-container {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    width: 90%;
+    max-width: 500px;
+    border-top: 12px solid var(--iron-blue);
+    text-align: center;
+    margin: 20px;
+}
+
+.main-container { max-width: 900px; } /* Especial para tablas */
+
+h1, h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--iron-blue);
+    margin-bottom: 30px;
+}
+
+/* FORMULARIOS */
+.form-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+.form-group { display: flex; flex-direction: column; margin-bottom: 15px; }
+.full-width { grid-column: span 2; }
+
+label { font-weight: 700; color: var(--iron-blue); margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; }
+input, select { padding: 12px; border: 2px solid #cbd5e1; border-radius: 4px; outline: none; }
+
+/* BOTONES */
+.btn-main, .btn-nav {
+    background: var(--iron-blue);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.btn-fire { background: var(--dragon-fire) !important; }
+.btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); }
+
+/* TABLAS */
+.data-table { width: 100%; border-collapse: collapse; margin-top: 25px; }
+.data-table th { background: var(--iron-blue); color: white; padding: 15px; font-family: 'Cinzel', serif; }
+.data-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+
+.user-name-cell { font-weight: bold; color: var(--iron-blue); }
+.status-active { color: #16a34a; font-weight: bold; }
+.status-inactive { color: #dc2626; font-weight: bold; }
+.table-actions { display: flex; gap: 20px; justify-content: center; }
+
+/* MENÚ */
+.grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+.menu-item {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--iron-blue);
+    border: 1px solid #e2e8f0;
+}
+.menu-item:hover { border-color: var(--dragon-fire); }
+.link-footer { margin-top: 20px; display: block; color: var(--dragon-fire); font-weight: bold; text-decoration: none; }
