@@ -69,7 +69,8 @@ public class Usuario {
     }
 
     public String getRol() {
-        return rol;
+        if (rol == null) return "ROLE_USUARIO";
+        return rol.startsWith("ROLE_") ? rol : "ROLE_" + rol;
     }
 
     public void setRol(String rol) {
