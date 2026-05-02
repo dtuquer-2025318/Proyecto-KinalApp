@@ -89,3 +89,31 @@ input, select { padding: 12px; border: 2px solid #cbd5e1; border-radius: 4px; ou
 }
 .menu-item:hover { border-color: var(--dragon-fire); }
 .link-footer { margin-top: 20px; display: block; color: var(--dragon-fire); font-weight: bold; text-decoration: none; }
+
+/* Estilos rápidos para complementar tu estilos.css */
+    .user-info {
+        text-align: right;
+        font-size: 0.9em;
+        margin-bottom: 20px;
+        color: #555;
+    }
+    .badge {
+        background: #e3e3e3;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.8em;
+    }
+    .admin-option {
+        border: 1px dashed #ff4757; /* Resaltado sutil para el admin */
+    }
+    .logout-btn {
+        background: none;
+        border: none;
+        color: #ff4757;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    .footer-actions {
+        margin-top: 30px;
+    }
