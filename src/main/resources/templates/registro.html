@@ -3,63 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Registro</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
-<h2>Crear Cuenta</h2>
+<div class="auth-container" style="max-width: 600px;">
+    <h2>Crear Cuenta</h2>
 
-<form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
-    <div>
-        <label>Nombre de Usuario:</label><br>
-        <input type="text" th:field="*{username}" required>
-    </div>
+    <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post" class="form-layout">
+        <div class="form-group full-width">
+            <label>Nombre de Usuario</label>
+            <input type="text" th:field="*{username}" required>
+        </div>
 
-    <br>
+        <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" th:field="*{email}" required>
+        </div>
 
-    <div>
-        <label>Correo Electrónico:</label><br>
-        <input type="email" th:field="*{email}" required>
-    </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" th:field="*{password}" required>
+        </div>
 
-    <br>
+        <div class="form-group">
+            <label>Tipo de Cuenta</label>
+            <select th:field="*{rol}" required>
+                <option value="ADMIN">Administrador</option>
+                <option value="USUARIO">Usuario Estándar</option>
+            </select>
+        </div>
 
-    <div>
-        <label>Contraseña:</label><br>
-        <input type="password" th:field="*{password}" required>
-    </div>
+        <div class="form-group">
+            <label>Estado Inicial</label>
+            <select th:field="*{estado}" required>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
 
-    <br>
+        <div class="full-width" style="display: flex; gap: 10px; margin-top: 20px;">
 
-    <div>
-        <label>Tipo de Cuenta:</label><br>
-        <select th:field="*{rol}" required>
-            <option value="ADMIN">Administrador</option>
-            <option value="USUARIO">Usuario Estándar</option>
-        </select>
-    </div>
+            <button type="submit" class="btn-main btn-fire" style="flex: 1;">REGISTRARSE</button>
+            <a th:href="@{/login}" class="btn-main" style="flex: 1; background: #64748b; text-align: center;">CANCELAR</a>
+        </div>
+    </form>
 
-    <br>
-
-    <div>
-        <label>Estado de la cuenta:</label><br>
-        <select th:field="*{estado}" required>
-            <option value="1">Activo (Habilitado)</option>
-            <option value="0">Inactivo (Deshabilitado)</option>
-        </select>
-    </div>
-
-    <br>
-
-    <button type="submit">REGISTRARSE</button>
-
-    <a th:href="@{/usuario/lista}">
-        <button type="button">CANCELAR</button>
-    </a>
-</form>
-
-<br>
-
-<div>
-    <p>¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
+    <p class="login-footer">
+        ¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a>
+    </p>
 </div>
 </body>
 </html>
