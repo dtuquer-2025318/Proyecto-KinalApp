@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
 <head>
     <meta charset="UTF-8">
     <title>KinalApp - Panel</title>
@@ -9,13 +10,17 @@
 <div class="dashboard-card">
     <h1>Menú KinalApp</h1>
     <div class="grid-menu">
-        <a th:href="@{/cliente/lista}" class="menu-item"><span>👥</span>Clientes</a>
-        <a th:href="@{/producto/lista}" class="menu-item"><span>📦</span>Productos</a>
-        <a th:href="@{/venta/lista}" class="menu-item"><span>💰</span>Ventas</a>
-        <a th:href="@{/detalleVenta/lista}" class="menu-item"><span>📜</span>Detalles Ventas</a>
-        <a th:href="@{/usuario/lista}" class="menu-item"><span>🔐</span>Usuarios</a>
+        <a th:href="@{/cliente/lista}" class="menu-item"> 👥 Clientes</a>
+        <a th:href="@{/producto/lista}" class="menu-item"> 📦 Productos</a>
+        <a th:href="@{/detalleVenta/lista}" class="menu-item"> 💰 Detalle Venta</a>
+        <a th:href="@{/usuario/lista}" class="menu-item" sec:authorize="hasRole('ADMIN')"> 🔐 Usuarios</a>
     </div>
-    <a th:href="@{/login}" class="link-footer">CERRAR SESIÓN</a>
+
+    <form th:action="@{/logout}" method="post" style="display: inline;">
+        <button type="submit" class="link-footer" style="background:none; border:none; color:red; cursor:pointer;">
+            CERRAR SESIÓN
+        </button>
+    </form>
 </div>
 </body>
 </html>
