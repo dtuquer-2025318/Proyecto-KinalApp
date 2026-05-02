@@ -1,4 +1,3 @@
-/* KinalApp: THE IRON CODE - Estilo Maestro */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;700&display=swap');
 
 :root {
@@ -20,7 +19,6 @@ body {
     min-height: 100vh;
 }
 
-/* CONTENEDORES */
 .auth-container, .dashboard-card, .main-container {
     background: var(--white);
     padding: 40px;
@@ -33,7 +31,7 @@ body {
     margin: 20px;
 }
 
-.main-container { max-width: 900px; } /* Especial para tablas */
+.main-container { max-width: 900px; }
 
 h1, h2 {
     font-family: 'Cinzel', serif;
@@ -41,7 +39,7 @@ h1, h2 {
     margin-bottom: 30px;
 }
 
-/* FORMULARIOS */
+
 .form-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
 .form-group { display: flex; flex-direction: column; margin-bottom: 15px; }
 .full-width { grid-column: span 2; }
@@ -49,7 +47,6 @@ h1, h2 {
 label { font-weight: 700; color: var(--iron-blue); margin-bottom: 8px; font-size: 0.85rem; text-transform: uppercase; }
 input, select { padding: 12px; border: 2px solid #cbd5e1; border-radius: 4px; outline: none; }
 
-/* BOTONES */
 .btn-main, .btn-nav {
     background: var(--iron-blue);
     color: white;
@@ -77,7 +74,6 @@ input, select { padding: 12px; border: 2px solid #cbd5e1; border-radius: 4px; ou
 .status-inactive { color: #dc2626; font-weight: bold; }
 .table-actions { display: flex; gap: 20px; justify-content: center; }
 
-/* MENÚ */
 .grid-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
 .menu-item {
     background: #f8fafc;
@@ -89,31 +85,3 @@ input, select { padding: 12px; border: 2px solid #cbd5e1; border-radius: 4px; ou
 }
 .menu-item:hover { border-color: var(--dragon-fire); }
 .link-footer { margin-top: 20px; display: block; color: var(--dragon-fire); font-weight: bold; text-decoration: none; }
-
-/* Estilos rápidos para complementar tu estilos.css */
-    .user-info {
-        text-align: right;
-        font-size: 0.9em;
-        margin-bottom: 20px;
-        color: #555;
-    }
-    .badge {
-        background: #e3e3e3;
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-size: 0.8em;
-    }
-    .admin-option {
-        border: 1px dashed #ff4757; /* Resaltado sutil para el admin */
-    }
-    .logout-btn {
-        background: none;
-        border: none;
-        color: #ff4757;
-        cursor: pointer;
-        font-weight: bold;
-        text-decoration: underline;
-    }
-    .footer-actions {
-        margin-top: 30px;
-    }
