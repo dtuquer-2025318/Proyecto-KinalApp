@@ -10,6 +10,23 @@
 <div class="main-container wide-container">
     <h1>Historial de Ventas</h1>
 
+    <div>
+        <form th:action="@{/venta/lista}" method="get">
+            <label for="codigoBusqueda">Buscar por Codigo de Venta:</label>
+            <input type="text" id="codigoBusqueda" name="codigoBusqueda" th:value="${codigoBusqueda}" placeholder="Ingrese el codigo exacto">
+            <button type="submit" class="btn-nav">BUSCAR</button>
+            <a th:href="@{/venta/lista}" class="btn-nav btn-fire">LIMPIAR</a>
+        </form>
+    </div>
+
+    <br>
+
+    <div th:if="${#lists.isEmpty(ventas) and codigoBusqueda != null}">
+        <p>No se encontró ningún cliente con el DPI: <strong th:text="${codigoBusqueda}"></strong></p>
+    </div>
+
+    <br>
+
     <div class="actions-container">
         <a th:href="@{/menu}" class="btn-nav"> ⬅ VOLVER AL MENÚ</a>
         <a th:href="@{/venta/nuevo}" class="btn-nav btn-fire"> + NUEVA VENTA</a>
