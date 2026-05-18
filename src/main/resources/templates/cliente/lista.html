@@ -9,6 +9,21 @@
 <div class="main-container wide-container">
     <h1>Gestión de Clientes</h1>
 
+    <div>
+        <form th:action="@{/cliente/lista}" method="get">
+            <label for="dpiBusqueda">Buscar por DPI:</label>
+            <input type="text" id="dpiBusqueda" name="dpiBusqueda" th:value="${dpiBusqueda}" placeholder="Ingrese DPI exacto">
+            <button type="submit" class="btn-nav">BUSCAR</button>
+            <a th:href="@{/cliente/lista}" class="btn-nav btn-fire">LIMPIAR</a>
+        </form>
+    </div>
+
+    <div th:if="${#lists.isEmpty(clientes) and dpiBusqueda != null}">
+        <p>No se encontró ningún cliente con el DPI: <strong th:text="${dpiBusqueda}"></strong></p>
+    </div>
+
+    <br>
+
     <div class="actions-container">
         <a th:href="@{/menu}" class="btn-nav">⬅ VOLVER</a>
         <a th:href="@{/cliente/nuevo}" class="btn-nav btn-fire">➕ NUEVO</a>
