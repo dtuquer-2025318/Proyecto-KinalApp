@@ -10,6 +10,21 @@
 <div class="main-container wide-container">
     <h1>Desglose de Facturación</h1>
 
+    <div>
+        <form th:action="@{/detalleVenta/lista}" method="get">
+            <label for="codigoBusqueda">Buscar por CODIGO:</label>
+            <input type="text" id="codigoBusqueda" name="codigoBusqueda" th:value="${codigoBusqueda}" placeholder="Ingrese Codigo exacto">
+            <button type="submit" class="btn-nav">BUSCAR</button>
+            <a th:href="@{/detalleVenta/lista}" class="btn-nav btn-fire">LIMPIAR</a>
+        </form>
+    </div>
+
+    <div th:if="${#lists.isEmpty(detalleVentas) and codigoBusqueda != null}">
+        <p>No se encontró ningún detalleVenta con el CODIGO: <strong th:text="${codigoBusqueda}"></strong></p>
+    </div>
+
+    <br>
+
     <div class="actions-container">
         <a th:href="@{/menu}" class="btn-nav"> ⬅ VOLVER AL PANEL</a>
         <a th:href="@{/detalleVenta/nuevo}" class="btn-nav btn-fire"> + ASIGNAR PRODUCTO</a>
@@ -28,7 +43,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="d : ${detalles}">
+        <tr th:each="d : ${detalleVentas}">
             <td th:text="${d.codigoDetalleVenta}"></td>
             <td th:text="'Factura #' + ${d.venta.codigoVenta}"></td>
             <td th:text="${d.producto.nombre_Producto}"></td>
@@ -45,7 +60,7 @@
                 </div>
             </td>
         </tr>
-        <tr th:if="${#lists.isEmpty(detalles)}">
+        <tr th:if="${#lists.isEmpty(detalleVentas)}">
             <td colspan="7">No hay detalles registrados.</td>
         </tr>
         </tbody>

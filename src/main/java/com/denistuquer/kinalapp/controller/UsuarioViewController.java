@@ -1,13 +1,13 @@
 package com.denistuquer.kinalapp.controller;
 
 import com.denistuquer.kinalapp.entity.Usuario;
-import com.denistuquer.kinalapp.repository.UsuarioRepository;
-import com.denistuquer.kinalapp.service.IUsuarioService;
+import com.denistuquer.kinalapp.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -15,39 +15,55 @@ import java.util.Optional;
 public class UsuarioViewController {
 
     @Autowired
-    private IUsuarioService usuarioService; // Cambiamos Repository por Service para que guarde bien
+    private UsuarioService usuarioService;
 
     @GetMapping("/lista")
-    public String listarUsuarios(Model model) {
-        model.addAttribute("usuarios", usuarioService.listarTodos());
+    public String listar(@RequestParam(name = "codigoBusqueda", required = false) String codigoBusqueda, Model model) {
+        if (codigoBusqueda != null && !codigoBusqueda.trim().isEmpty()) {
+            try {
+                int id = Integer.parseInt(codigoBusqueda);
+                List<Usuario> lista = usuarioService.buscarPorCodigo(id)
+                        .map(List::of)
+                        .orElse(java.util.Collections.emptyList());
+                model.addAttribute("usuarios", lista);
+            }catch(NumberFormatException e) {
+                model.addAttribute("usuarios", java.util.Collections.emptyList());
+            }
+            model.addAttribute("codigoBusqueda", codigoBusqueda);
+        } else {
+            model.addAttribute("usuarios", usuarioService.listarTodos());
+        }
         return "usuario/lista";
     }
 
+    //Método @GetMapping para abrir formulario para uno nuevo usuario
     @GetMapping("/nuevo")
-    public String registroForm(Model model) {
+    public String nuevo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "usuario/formulario";
+        return "registro";
     }
 
+    //Método para abrir formulario para editar un usuario de la lista de usuarios
     @GetMapping("/editar/{id}")
-    public String editarUsuario(@PathVariable("id") Integer id, Model model) {
+    public String editar(@PathVariable("id") Integer id, Model model) {
         Optional<Usuario> usuario = usuarioService.buscarPorCodigo(id);
         if (usuario.isPresent()) {
             model.addAttribute("usuario", usuario.get());
-            return "usuario/formulario";
+            return "registro";
         }
         return "redirect:/usuario/lista";
     }
 
+    //Método @PostMapping para guardar un usuario
     @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
-        // ESTA LÍNEA ES LA QUE FALTA PARA QUE SE GUARDE EN LA DB
+    public String guardar(@ModelAttribute("usuario") Usuario usuario) {
         usuarioService.guardar(usuario);
         return "redirect:/usuario/lista";
     }
 
+    //Método @GetMapping para eliminar un usuario de la lista de usuarios
     @GetMapping("/eliminar/{id}")
-    public String eliminarUsuario(@PathVariable("id") Integer id) {
+    public String eliminar(@PathVariable("id") Integer id) {
         usuarioService.eliminar(id);
         return "redirect:/usuario/lista";
     }

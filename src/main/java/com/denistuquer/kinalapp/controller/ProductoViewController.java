@@ -1,55 +1,71 @@
 package com.denistuquer.kinalapp.controller;
 
 import com.denistuquer.kinalapp.entity.Producto;
-import com.denistuquer.kinalapp.repository.ProductoRepository;
+import com.denistuquer.kinalapp.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
-@RequestMapping("/producto") // Esta es la base para la VISTA
+@RequestMapping("/producto")
 public class ProductoViewController {
 
     @Autowired
-    private ProductoRepository productoRepository;
+    private ProductoService productoService;
 
-    // Ver la lista completa
+    //Método @GetMapping para ver la lista completa de producto
     @GetMapping("/lista")
-    public String listar(Model model) {
-        model.addAttribute("productos", productoRepository.findAll());
+    public String listar(@RequestParam(name = "codigoBusqueda", required = false) String codigoBusqueda, Model model) {
+        if (codigoBusqueda != null && !codigoBusqueda.trim().isEmpty()) {
+            try {
+                int id = Integer.parseInt(codigoBusqueda);
+                List<Producto> lista = productoService.buscarPorCodigo(id)
+                        .map(List::of)
+                        .orElse(java.util.Collections.emptyList());
+                model.addAttribute("productos", lista);
+            }catch(NumberFormatException e){
+                model.addAttribute("productos", java.util.Collections.emptyList());
+            }
+            model.addAttribute("codigoBusqueda", codigoBusqueda);
+        }else {
+            model.addAttribute("productos", productoService.listarTodos());
+    }
         return "producto/lista";
     }
 
-    // Abrir formulario para uno nuevo
+    //Método @GetMapping para abrir formulario para uno nuevo producto
     @GetMapping("/nuevo")
     public String formulario(Model model) {
         model.addAttribute("producto", new Producto());
         return "producto/formulario";
     }
 
-    // Abrir formulario para EDITAR (Aquí estaba tu error 404)
+    //Método para abrir formulario para editar un producto de la lista de productos
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable("id") Integer id, Model model) {
-        Producto producto = productoRepository.findById(id).orElse(null);
-        if (producto != null) {
-            model.addAttribute("producto", producto);
+        Optional<Producto> producto = productoService.buscarPorCodigo(id);
+        if (producto.isPresent()) {
+            model.addAttribute("producto", producto.get());
             return "producto/formulario";
         }
         return "redirect:/producto/lista";
     }
 
-    // Acción de ELIMINAR (Usamos GetMapping porque es un enlace <a>)
-    @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable("id") Integer id) {
-        productoRepository.deleteById(id);
+    //Método @PostMapping para guardar un producto
+    @PostMapping("/guardar")
+    public String guardar(@ModelAttribute("producto") Producto producto) {
+        productoService.guardar(producto);
         return "redirect:/producto/lista";
     }
 
-    // Guardar (POST)
-    @PostMapping("/guardar")
-    public String guardar(@ModelAttribute("producto") Producto producto) {
-        productoRepository.save(producto);
+    //Método @GetMapping para eliminar un producto de la lista de productos
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable("id") Integer id) {
+        productoService.eliminar(id);
         return "redirect:/producto/lista";
     }
 }
