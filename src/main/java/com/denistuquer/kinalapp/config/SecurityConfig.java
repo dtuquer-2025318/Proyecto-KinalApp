@@ -29,8 +29,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/login", "/usuario/nuevo", "/usuario/guardar").permitAll()
-                        .requestMatchers("/usuario/lista/**").hasRole("ADMIN")
+                        .requestMatchers("/css/**","/login").permitAll()
+
+                        .requestMatchers("/usuario/nuevo", "/usuario/guardar").permitAll()
+
+                        .requestMatchers("/usuario/editar/**", "/usuario/eliminar/**", "/usuario/actualizar/**").hasRole("ADMIN")
+                        .requestMatchers("/cliente/editar/**", "/cliente/eliminar/**", "/cliente/actualizar/**").hasRole("ADMIN")
+                        .requestMatchers("/producto/editar/**", "/producto/eliminar/**", "/producto/actualizar/**").hasRole("ADMIN")
+                        .requestMatchers("/venta/editar/**", "/venta/eliminar/**", "/venta/actualizar/**").hasRole("ADMIN")
+                        .requestMatchers("/detalleVenta/eliminar/**", "/detalleVenta/editar/**", "/detalleVenta/actualizar/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -51,6 +59,14 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
+            if ("admin".equals(username)) {
+                return User.builder()
+                        .username("admin")
+                        .password("admin123")
+                        .authorities("ROLE_ADMIN")
+                        .build();
+            }
+
             Optional<Usuario> usuarioOpt = usuarioRepository.findByUsername(username);
 
             Usuario u = usuarioOpt
