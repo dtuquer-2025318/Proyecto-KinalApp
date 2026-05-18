@@ -10,6 +10,21 @@
 <div class="main-container wide-container">
     <h1>Control de Accesos</h1>
 
+    <div>
+        <form th:action="@{/usuario/lista}" method="get">
+            <label for="codigoBusqueda">Buscar por Código:</label>
+            <input type="number" id="codigoBusqueda" name="codigoBusqueda" th:value="${codigoBusqueda}" placeholder="Ingrese el Codigo exacto">
+            <button type="submit" class="btn-nav">BUSCAR</button>
+            <a th:href="@{/usuario/lista}" class="btn-nav btn-fire">LIMPIAR</a>
+        </form>
+    </div>
+
+    <div th:if="${#lists.isEmpty(usuarios) and codigoBusqueda != null}">
+        <p>No se encontró ningún Usuario con el CODIGO: <strong th:text="${codigoBusqueda}"></strong></p>
+    </div>
+
+    <br>
+
     <div class="actions-container">
         <a th:href="@{/menu}" class="btn-nav">⬅ PANEL</a>
         <a th:href="@{/usuario/nuevo}" class="btn-nav btn-fire">➕ NUEVO</a>
