@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>KinalApp - Registro</title>
+    <title>KinalApp - Registro / Gestión</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
 <div class="auth-container" style="max-width: 600px;">
-    <h2>Crear Cuenta</h2>
+    <h2 th:text="${usuario.codigoUsuario == null ? 'Crear Cuenta' : 'Editar Usuario'}">Crear Cuenta</h2>
 
     <form th:action="@{/usuario/guardar}" th:object="${usuario}" method="post" class="form-layout">
+
+        <input type="hidden" th:field="*{codigoUsuario}">
+
         <div class="form-group full-width">
             <label>Nombre de Usuario</label>
             <input type="text" th:field="*{username}" required>
@@ -22,10 +26,10 @@
 
         <div class="form-group">
             <label>Contraseña</label>
-            <input type="password" th:field="*{password}" required>
+            <input type="password" th:field="*{password}" th:required="${usuario.codigoUsuario == null}">
         </div>
 
-        <div class="form-group">
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="form-group">
             <label>Tipo de Cuenta</label>
             <select th:field="*{rol}" required>
                 <option value="ADMIN">Administrador</option>
@@ -33,7 +37,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="form-group">
             <label>Estado Inicial</label>
             <select th:field="*{estado}" required>
                 <option value="1">Activo</option>
@@ -41,14 +45,19 @@
             </select>
         </div>
 
-        <div class="full-width" style="display: flex; gap: 10px; margin-top: 20px;">
+        <div th:unless="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <input type="hidden" name="rol" value="USUARIO">
+            <input type="hidden" name="estado" value="1">
+        </div>
 
-            <button type="submit" class="btn-main btn-fire" style="flex: 1;">REGISTRARSE</button>
-            <a th:href="@{/login}" class="btn-main" style="flex: 1; background: #64748b; text-align: center;">CANCELAR</a>
+        <div class="full-width" style="display: flex; gap: 10px; margin-top: 20px;">
+            <button type="submit" class="btn-main btn-fire" style="flex: 1;">GUARDAR / REGISTRARSE</button>
+            <a th:href="${#authorization.expression('hasRole(''ADMIN'')')} ? @{/usuario/lista} : @{/login}"
+               class="btn-main" style="flex: 1; background: #64748b; text-align: center;">CANCELAR</a>
         </div>
     </form>
 
-    <p class="login-footer">
+    <p class="login-footer" th:unless="${#authorization.expression('hasRole(''ADMIN'')')}">
         ¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a>
     </p>
 </div>
