@@ -10,6 +10,17 @@
 <div class="main-container wide-container">
     <h1>Gestión de Productos</h1>
 
+        <div>
+            <form th:action="@{/producto/lista}" method="get">
+                <label for="codigoBusqueda">Buscar por Codigo del producto:</label>
+                <input type="text" id="codigoBusqueda" name="codigoBusqueda" th:value="${codigoBusqueda}" placeholder="Ingrese el codigo exacto">
+                <button type="submit" class="btn-nav">BUSCAR</button>
+                <a th:href="@{/producto/lista}" class="btn-nav btn-fire">LIMPIAR</a>
+            </form>
+        </div>
+
+        <br>
+
     <div class="actions-container">
         <a th:href="@{/menu}" class="btn-nav">⬅ VOLVER AL MENÚ</a>
         <a th:href="@{/producto/nuevo}" class="btn-nav btn-fire">+ NUEVO PRODUCTO</a>
